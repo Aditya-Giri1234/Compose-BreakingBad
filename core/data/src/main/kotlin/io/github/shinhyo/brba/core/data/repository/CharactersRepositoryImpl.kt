@@ -35,8 +35,33 @@ open class CharactersRepositoryImpl @Inject constructor(
     private val dao: CharacterDao,
 ) : CharactersRepository {
 
-    override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }
-        .map { it.map(CharacterResponse::asExternalModel) }
+    val character = BrbaCharacter(
+        charId = 0,
+        name = "Walter White",
+        birthday = "09-07-1958",
+        img = "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
+        status = "Presumed dead",
+        nickname = "Heisenberg",
+        portrayed = "",
+        category = listOf("Breaking Bad"),
+        ratio = 1.2f,
+        isFavorite = true,
+    )
+    private val characters = listOf(
+        character,
+        character.copy(charId = 1, ratio = 1.8f),
+        character.copy(charId = 2, ratio = 1.6f, isFavorite = false , img = "https://as1.ftcdn.net/v2/jpg/09/72/73/48/1000_F_972734871_rz66twiRga8ttVWzZuxC6p2CkAFJQmKB.jpg"),
+        character.copy(charId = 3, ratio = 1.4f, isFavorite = false),
+        character.copy(charId = 4, ratio = 1.2f, isFavorite = false),
+        character.copy(charId = 5, ratio = 1.8f, isFavorite = true),
+    )
+
+/*    override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }
+        .map {
+            it.map(CharacterResponse::asExternalModel)
+        }*/
+
+    override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(characters) }
 
     override fun getCharacterList(id: Long): Flow<BrbaCharacter> =
         flow { emit(api.getCharacter(id)) }
