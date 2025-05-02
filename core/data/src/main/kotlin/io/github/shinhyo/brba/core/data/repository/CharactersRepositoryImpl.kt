@@ -48,12 +48,13 @@ open class CharactersRepositoryImpl @Inject constructor(
         isFavorite = true,
     )
     private val characters = listOf(
-        character,
-        character.copy(charId = 1, ratio = 1.8f),
-        character.copy(charId = 2, ratio = 1.6f, isFavorite = false , img = "https://as1.ftcdn.net/v2/jpg/09/72/73/48/1000_F_972734871_rz66twiRga8ttVWzZuxC6p2CkAFJQmKB.jpg"),
-        character.copy(charId = 3, ratio = 1.4f, isFavorite = false),
-        character.copy(charId = 4, ratio = 1.2f, isFavorite = false),
-        character.copy(charId = 5, ratio = 1.8f, isFavorite = true),
+        *List(50) { index ->
+            character.copy(
+                charId = index + 1L,                   // 1 to 50
+                ratio = 1.0f + index * 0.1f,          // 1.0, 1.1, ..., 5.9
+                isFavorite = false
+            )
+        }.toTypedArray()
     )
 
 /*    override fun getCharacterList(): Flow<List<BrbaCharacter>> = flow { emit(api.getCharacter()) }

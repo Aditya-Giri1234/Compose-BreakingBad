@@ -193,7 +193,7 @@ private fun SharedTransitionScope.CharacterImage(
             .fillMaxWidth()
             .aspectRatio(1f / 1.4f)
             .brbaSharedElement(
-                isLocalInspectionMode = LocalInspectionMode.current,
+                isLocalInspectionMode = LocalInspectionMode.current,  // LocalInspectionMode tell us that it render ui in preview or on real device 😎
                 animatedVisibilityScope = animatedVisibilityScope,
                 rememberSharedContentState(key = "character_${id}_row"),
                 rememberSharedContentState(key = "character_${id}_card"),
